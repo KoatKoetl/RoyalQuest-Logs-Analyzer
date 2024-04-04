@@ -7,7 +7,11 @@ export default {
     './src/**/*.{js,jsx,tsx, ts}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'Bona-Nova': ['Bona Nova', 'serif'],
+      },
+    },
   },
   plugins: [],
 };
