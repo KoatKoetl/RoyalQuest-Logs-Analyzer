@@ -1,7 +1,19 @@
+// !Change all alerts to another form of information to user
+const validExtensions = ['htm', 'html'];
+
 const FileForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
+    const fileInput = formData.get('file') as File;
+
+    const extension = fileInput.name.split('.').pop()?.toLowerCase();
+
+    if (!validExtensions.includes(extension || '')) {
+      alert('Please select a file with a valid extension (htm or html).');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3000/upload', {
         method: 'POST',
