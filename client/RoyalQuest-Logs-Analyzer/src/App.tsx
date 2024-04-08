@@ -1,9 +1,11 @@
-import { FileForm } from './components/FileForm';
+import { GETFileForm } from './components/GETFileForm';
+import { POSTFileForm } from './components/POSTFileForm';
 
 function App() {
   return (
     <>
-      <FileForm></FileForm>
+      <POSTFileForm></POSTFileForm>
+      <GETFileForm></GETFileForm>
     </>
   );
 }

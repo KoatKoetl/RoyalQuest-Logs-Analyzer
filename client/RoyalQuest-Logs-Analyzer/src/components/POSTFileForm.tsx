@@ -1,7 +1,7 @@
 // !Change all alerts to another form of information to user
 const validExtensions = ['htm', 'html'];
 
-const FileForm = () => {
+const POSTFileForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
@@ -15,7 +15,7 @@ const FileForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/upload', {
+      const response = await fetch('http://localhost:3000/uploads', {
         method: 'POST',
         body: formData,
       });
@@ -53,4 +53,4 @@ const FileForm = () => {
   );
 };
 
-export { FileForm };
+export { POSTFileForm };
