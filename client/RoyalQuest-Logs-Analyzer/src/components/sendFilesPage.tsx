@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material';
 import { useState } from 'react';
 import { AlertStatus } from './alertStatus';
 
@@ -30,9 +31,11 @@ const SendFilesPage = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [scanIsClicked, setScanIsClicked] = useState(false);
   const [isFileSent, setIsFileSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const formData = new FormData(event.target as HTMLFormElement);
     const fileInput = formData.get('file') as File;
 
@@ -46,6 +49,8 @@ const SendFilesPage = () => {
     }
 
     try {
+      setIsLoading(true);
+
       const response = await fetch('http://localhost:3000/uploads', {
         method: 'POST',
         body: formData,
@@ -53,26 +58,30 @@ const SendFilesPage = () => {
       if (response.ok) {
         setScanIsClicked(true);
         setIsFileSent(true);
+        setIsLoading(false);
         setAlertMessage('File successfully sent');
       } else {
-        setIsFileSent(false);
         setScanIsClicked(true);
-        setAlertMessage(`Error sending file: ${response.statusText}`);
+        setIsFileSent(false);
+        setIsLoading(false);
+        setAlertMessage(`Error sending file - ${response.statusText}`);
       }
     } catch (error) {
       setScanIsClicked(true);
+      setIsLoading(false);
       setIsFileSent(false);
-      setAlertMessage(`Error sending file: ${error}`);
+      setAlertMessage(`Error sending file - ${error}`);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-full font-Bona-Nova">
+    <div className="flex flex-col justify-center items-center h-full font-Bona-Nova">
       {!scanIsClicked ? (
         <SendFileForm handleSubmit={handleSubmit} />
       ) : (
         <AlertStatus isFileSent={isFileSent} alertMessage={alertMessage} setScanIsClicked={setScanIsClicked} />
       )}
+      {isLoading && <CircularProgress color="inherit" />}
     </div>
   );
 };
