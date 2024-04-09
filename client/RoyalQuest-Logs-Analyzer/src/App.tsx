@@ -1,11 +1,11 @@
-import { GETFileForm } from './components/GETFileForm';
-import { POSTFileForm } from './components/POSTFileForm';
+import { GetFilesPage } from './components/getFilesPage';
+import { SendFilesPage } from './components/sendFilesPage';
 
 function App() {
   return (
     <>
-      <POSTFileForm></POSTFileForm>
-      <GETFileForm></GETFileForm>
+      <SendFilesPage></SendFilesPage>
+      <GetFilesPage></GetFilesPage>
     </>
   );
 }
