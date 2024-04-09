@@ -17,7 +17,7 @@ app.use(cors());
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 
-app.post('/upload', upload.single('file'), handleFileUpload);
+app.post('/uploads', upload.single('file'), handleFileUpload);
 
 app.get('/downloads', getDownloadsFolder);
 app.get('/downloads/:filename', getDownloadsFile);
