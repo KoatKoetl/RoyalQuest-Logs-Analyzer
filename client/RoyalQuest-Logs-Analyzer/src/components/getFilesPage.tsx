@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const GetFilesPage = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,7 +29,7 @@ const GetFilesPage = () => {
           type="submit"
           className="text-2xl border px-2 py-1 hover:bg-[#ce9b50] hover:text-white hover:rounded-br-2xl hover:rounded-bl-2xl transition-all duration-200"
         >
-          Show the data
+          <Link to="itemsTable">Show the data</Link>
         </button>
       </form>
     </>
