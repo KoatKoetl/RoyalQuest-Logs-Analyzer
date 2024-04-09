@@ -40,7 +40,7 @@ const POSTFileForm = () => {
           <label htmlFor="file" className="sm:text-2xl font-bold">
             Select a log file to scan:
           </label>
-          <input type="file" id="logFile" name="file" accept="text/htm, text/html" required />
+          <input type="file" id="file" name="file" accept="text/htm, text/html" required />
         </div>
         <button
           type="submit"
