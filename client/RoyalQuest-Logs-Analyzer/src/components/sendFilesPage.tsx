@@ -2,7 +2,7 @@ import { CircularProgress } from '@mui/material';
 import { useState } from 'react';
 import { AlertStatus } from './alertStatus';
 
-const validExtensions = ['htm', 'html'];
+const validExtensions: Array<string> = ['htm', 'html'];
 
 const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void }) => {
   return (
@@ -28,10 +28,10 @@ const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<
 };
 
 const SendFilesPage = () => {
-  const [alertMessage, setAlertMessage] = useState('');
-  const [scanIsClicked, setScanIsClicked] = useState(false);
-  const [isFileSent, setIsFileSent] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [scanIsClicked, setScanIsClicked] = useState<boolean>(false);
+  const [isFileSent, setIsFileSent] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
