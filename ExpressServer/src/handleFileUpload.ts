@@ -43,19 +43,22 @@ const extractDocumentData = (document: Document) => {
   const itemsData: ItemsData = {};
 
   document.querySelectorAll('u').forEach((element) => {
-    const text: string = element.textContent?.trim().replace(/ /g, '_') as string;
-
     const parentElementValue: string | undefined = element.parentNode?.textContent?.trim();
-    const match = parentElementValue?.match(/(\d+)шт/i);
+    const matchMyItems = parentElementValue?.match(/^(get|получен)\s+(item|предмет)/i);
 
-    if (!itemsData[text]) {
-      itemsData[text] = { amount: 0 };
-    }
+    if (matchMyItems) {
+      const text: string = element.textContent?.trim().replace(/ /g, '_') as string;
+      const matchStackItems = parentElementValue?.match(/(\d+)шт/i);
 
-    if (match) {
-      itemsData[text].amount += parseInt(match[1]);
-    } else {
-      itemsData[text].amount++;
+      if (!itemsData[text]) {
+        itemsData[text] = { amount: 0 };
+      }
+
+      if (matchStackItems) {
+        itemsData[text].amount += parseInt(matchStackItems[1]);
+      } else {
+        itemsData[text].amount++;
+      }
     }
   });
 
