@@ -6,9 +6,12 @@ import path from 'path';
 const { JSDOM } = jsdom;
 
 interface ItemsData {
-  [index: string]: {
-    amount: number;
+  Получено: {
+    [index: string]: {
+      amount: number;
+    };
   };
+  Продано: {};
 }
 
 const handleFileUpload = (req: Request, res: Response) => {
@@ -40,7 +43,10 @@ const processData = (data: string, filePath: string, res: Response) => {
 };
 
 const extractDocumentData = (document: Document) => {
-  const itemsData: ItemsData = {};
+  const itemsData: ItemsData = {
+    Получено: {},
+    Продано: {},
+  };
 
   document.querySelectorAll('u').forEach((element) => {
     const parentElementValue: string | undefined = element.parentNode?.textContent?.trim();
@@ -48,16 +54,16 @@ const extractDocumentData = (document: Document) => {
 
     if (matchMyItems) {
       const text: string = element.textContent?.trim().replace(/ /g, '_') as string;
-      const matchStackItems = parentElementValue?.match(/(\d+)шт/i);
+      const matchStackItems = parentElementValue?.match(/(\d+)шт|(\d+)pcs/i);
 
-      if (!itemsData[text]) {
-        itemsData[text] = { amount: 0 };
+      if (!itemsData.Получено[text]) {
+        itemsData.Получено[text] = { amount: 0 };
       }
 
       if (matchStackItems) {
-        itemsData[text].amount += parseInt(matchStackItems[1]);
+        itemsData.Получено[text].amount += parseInt(matchStackItems[1]);
       } else {
-        itemsData[text].amount++;
+        itemsData.Получено[text].amount++;
       }
     }
   });
