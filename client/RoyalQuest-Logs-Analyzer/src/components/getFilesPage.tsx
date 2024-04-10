@@ -25,12 +25,14 @@ const GetFilesPage = () => {
           <span className="md:text-6xl royalQuestGradient p-2">Royal Quest </span>
           <span className="md:text-6xl royalQuestGradient p-2">Log Scanner</span>
         </h1>
-        <button
-          type="submit"
-          className="text-2xl border px-2 py-1 hover:bg-[#ce9b50] hover:text-white hover:rounded-br-2xl hover:rounded-bl-2xl transition-all duration-200"
-        >
-          <Link to="itemsTable">Show the data</Link>
-        </button>
+        <Link to="itemsTable">
+          <button
+            type="submit"
+            className="text-2xl border px-2 py-1 hover:bg-[#ce9b50] hover:text-white hover:rounded-br-2xl hover:rounded-bl-2xl transition-all duration-200"
+          >
+            Show the data{' '}
+          </button>
+        </Link>
       </form>
     </>
   );
