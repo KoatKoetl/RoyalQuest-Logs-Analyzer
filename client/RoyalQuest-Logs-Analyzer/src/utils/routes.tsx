@@ -9,11 +9,11 @@ const routes = [
   },
   {
     path: 'getFilesPage',
-    element: <GetFilesPage />,
+    element: <GetFilesPage key={document.location.href} />,
   },
   {
     path: 'getFilesPage/itemsTable',
-    element: <ItemsTable />,
+    element: <ItemsTable key={document.location.href} />,
   },
 ];
 
