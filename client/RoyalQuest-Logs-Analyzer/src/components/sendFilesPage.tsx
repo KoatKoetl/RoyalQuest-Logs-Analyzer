@@ -42,36 +42,34 @@ const SendFilesPage = () => {
     const extension = fileInput.name.split('.').pop()?.toLowerCase();
 
     if (!validExtensions.includes(extension || '')) {
-      setAlertMessage('Please select a file with a valid extension (.htm or .html)');
+      handleAlert('Please select a file with a valid extension (.htm or .html)', false);
       setScanIsClicked(true);
-      setIsFileSent(false);
       return;
     }
 
     try {
       setIsLoading(true);
 
-      const response = await fetch('http://localhost:3000/uploads', {
+      const response = await fetch(`http://localhost:3000/uploads`, {
         method: 'POST',
         body: formData,
       });
       if (response.ok) {
-        setScanIsClicked(true);
-        setIsFileSent(true);
-        setIsLoading(false);
-        setAlertMessage('File successfully sent');
+        handleAlert('File successfully sent', true);
       } else {
-        setScanIsClicked(true);
-        setIsFileSent(false);
-        setIsLoading(false);
-        setAlertMessage(`Error sending file - ${response.statusText}`);
+        handleAlert(`Error sending file - ${response.statusText}`, false);
       }
     } catch (error) {
-      setScanIsClicked(true);
+      handleAlert(`Error sending file - ${error}`, false);
+    } finally {
       setIsLoading(false);
-      setIsFileSent(false);
-      setAlertMessage(`Error sending file - ${error}`);
+      setScanIsClicked(true);
     }
+  };
+
+  const handleAlert = (message: string, success: boolean) => {
+    setAlertMessage(message);
+    setIsFileSent(success);
   };
 
   return (
