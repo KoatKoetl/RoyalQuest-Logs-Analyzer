@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material';
+import axios from 'axios';
 import { useState } from 'react';
 import { AlertStatus } from './alertStatus';
 
@@ -50,14 +51,22 @@ const SendFilesPage = () => {
     try {
       setIsLoading(true);
 
-      const response = await fetch(`http://localhost:3000/uploads`, {
+      const ServerRequest = await axios({
         method: 'POST',
-        body: formData,
+        url: 'http://localhost:3000/uploads',
+        data: formData,
       });
-      if (response.ok) {
+
+      const DBRequest = await axios({
+        method: 'POST',
+        url: 'http://localhost:3000/storeInDB',
+        data: formData,
+      });
+
+      if (ServerRequest.status === 200 && DBRequest.status === 200) {
         handleAlert('File successfully sent', true);
       } else {
-        handleAlert(`Error sending file - ${response.statusText}`, false);
+        handleAlert(`Error sending file - ${ServerRequest.statusText}`, false);
       }
     } catch (error) {
       handleAlert(`Error sending file - ${error}`, false);
