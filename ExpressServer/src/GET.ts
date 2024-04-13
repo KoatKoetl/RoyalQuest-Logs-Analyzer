@@ -10,7 +10,7 @@ const badRequestHandler = (req: Request, res: Response) => {
 
 const getDownloadsFile = (req: Request, res: Response) => {
   const filename = req.params.filename;
-  const filePath = path.join(__dirname, 'downloads', filename);
+  const filePath = path.join(__dirname, 'files/downloads', filename);
 
   res.download(filePath, (err: Error) => {
     if (err) {
@@ -20,7 +20,7 @@ const getDownloadsFile = (req: Request, res: Response) => {
 };
 
 const getDownloadsFolder = (req: Request, res: Response) => {
-  const donwloadsFolder = path.join(__dirname, 'downloads');
+  const donwloadsFolder = path.join(__dirname, 'files/downloads');
 
   fs.readdir(donwloadsFolder, (err, files: string[]) => {
     if (err) {
