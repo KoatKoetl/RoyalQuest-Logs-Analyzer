@@ -14,7 +14,7 @@ interface ItemsData {
   Продано: {};
 }
 
-const handleFileUpload = (req: Request, res: Response) => {
+const handleFileUpload_StoreItemsOnServer = (req: Request, res: Response) => {
   if (!req.file) {
     return res.status(400).send({ error: 'Error uploading file' });
   }
@@ -72,15 +72,15 @@ const extractDocumentData = (document: Document) => {
 };
 
 const writeDataToFile = (itemsData: ItemsData, filePath: string, res: Response) => {
-  const jsonFileName = `src/downloads/${path.basename(filePath, path.extname(filePath))}.json`;
+  const jsonFileName = `src/files/downloads/${path.basename(filePath, path.extname(filePath))}.json`;
 
   fs.writeFile(jsonFileName, JSON.stringify(itemsData, null, 2), (err) => {
     if (err) {
       return res.status(500).json({ error: 'Error saving the file data' });
     }
     console.log('Table data saved to:', jsonFileName);
-    res.status(200).send({ success: 'File data successfully uploaded and saved' });
+    res.status(200).send({ success: 'File data successfully uploaded and saved on server' });
   });
 };
 
-export { handleFileUpload };
+export { handleFileUpload_StoreItemsOnServer };
