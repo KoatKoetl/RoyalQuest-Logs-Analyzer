@@ -59,7 +59,7 @@ const SendFilesPage = () => {
 
       const DBRequest = await axios({
         method: 'POST',
-        url: 'http://localhost:3000/storeInDB',
+        url: 'http://localhost:3000/addItemsInDB',
         data: formData,
       });
 
