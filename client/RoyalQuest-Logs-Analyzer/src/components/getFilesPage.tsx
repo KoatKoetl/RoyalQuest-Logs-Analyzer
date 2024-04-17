@@ -16,7 +16,7 @@ const GetFilesPage = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/downloads', {
+      const response = await fetch('http://localhost:3000/api/downloads', {
         method: 'GET',
       });
 

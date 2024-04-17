@@ -53,13 +53,13 @@ const SendFilesPage = () => {
 
       const ServerRequest = await axios({
         method: 'POST',
-        url: 'http://localhost:3000/storeOnServer',
+        url: 'http://localhost:3000/api/storeOnServer',
         data: formData,
       });
 
       const DBRequest = await axios({
         method: 'POST',
-        url: 'http://localhost:3000/addItemsInDB',
+        url: 'http://localhost:3000/api/addItemsInDB',
         data: formData,
       });
 
