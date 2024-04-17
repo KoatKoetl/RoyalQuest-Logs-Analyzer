@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import multer from 'multer';
-import path from 'path';
 import { findItemByIDinDB, findItemInDB, postItemInDB } from '../controllers/CRUD-Operations.js';
 import { getDownloadsFile, getDownloadsFolder } from '../controllers/GET.js';
 import { fileFilter } from '../controllers/extensionValidation.js';
