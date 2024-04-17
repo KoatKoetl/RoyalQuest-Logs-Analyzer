@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import jsdom from 'jsdom';
-import { Item } from './itemsSchema.js';
+import { Item } from '../models/itemSchema.js';
 
 const { JSDOM } = jsdom;
 

@@ -53,7 +53,7 @@ const SendFilesPage = () => {
 
       const ServerRequest = await axios({
         method: 'POST',
-        url: 'http://localhost:3000/uploads',
+        url: 'http://localhost:3000/storeOnServer',
         data: formData,
       });
 
