@@ -42,7 +42,7 @@ const ItemsTable = () => {
 
   const fetchData = async (fileName: string) => {
     try {
-      const response: AxiosResponse = await axios(`http://localhost:3000/downloads/${fileName}`);
+      const response: AxiosResponse = await axios(`http://localhost:3000/api/downloads/${fileName}`);
       if (response.status === 200) {
         createItemRows(response.data['Получено']);
       } else {
