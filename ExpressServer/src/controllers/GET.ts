@@ -10,7 +10,7 @@ const badRequestHandler = (req: Request, res: Response) => {
 
 const getDownloadsFile = (req: Request, res: Response) => {
   const filename = req.params.filename;
-  const filePath = path.join('/home/stanislav/GitHub_Repositories/RoyalQuest-Logs-Analyzer/ExpressServer/src/files/downloads/', filename);
+  const filePath = path.join('files/downloads/', filename);
 
   res.download(filePath, (err: Error) => {
     if (err) {
@@ -20,7 +20,7 @@ const getDownloadsFile = (req: Request, res: Response) => {
 };
 
 const getDownloadsFolder = (req: Request, res: Response) => {
-  const donwloadsFolder = path.join('/home/stanislav/GitHub_Repositories/RoyalQuest-Logs-Analyzer/ExpressServer/src/files/downloads');
+  const donwloadsFolder = path.join('files/downloads');
 
   fs.readdir(donwloadsFolder, (err, files: string[]) => {
     if (err) {

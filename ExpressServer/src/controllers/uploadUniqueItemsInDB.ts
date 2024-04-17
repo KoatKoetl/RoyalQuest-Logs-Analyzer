@@ -29,7 +29,6 @@ const processData = (data: string, res: Response) => {
   const fileDOM = new JSDOM(data);
   const document = fileDOM.window.document;
   const itemsData = extractDocumentData(document);
-  console.log(itemsData);
   addToDatabase(itemsData, res);
 };
 
@@ -76,10 +75,10 @@ const addToDatabase = async (itemsData: {}[], res: Response) => {
     res.status(200).send({ success: 'Successfully inserted all items', insertedCount: 'Items inserted: ' + result.insertedCount });
   } catch (error: any) {
     if (error.code === 11000) {
-      console.log('Duplicate key error' + error);
+      console.log('Duplicate key error. Code:', error.code);
       res.status(200).send({ success: 'Some items successfully inserted. Duplicates are skipped' });
     } else {
-      console.log(error);
+      console.log('MongoDB write error.', error);
       res.status(500).send({ error: 'Internal Server Error' });
     }
   }

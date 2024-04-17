@@ -4,24 +4,30 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import connectToMongoDB from './controllers/connectToDB.js';
 import limiter from './middleware/express-rate-limit.js';
 import router from './routes/routes.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 dotenv.config();
 const port = process.env.PORT;
 
 connectToMongoDB();
 
-app.use('/', express.static(path.join('../client/RoyalQuest-Logs-Analyzer/dist')));
 app.use(cors());
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(limiter);
-app.use('/', router);
+app.use('/api', router);
+
+app.get('*', (req, res) => {
+  const filePath = path.resolve('../client/RoyalQuest-Logs-Analyzer/dist/index.html');
+  res.sendFile(filePath);
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
