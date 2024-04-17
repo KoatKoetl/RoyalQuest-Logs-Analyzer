@@ -34,6 +34,7 @@ const processData = (data: string, res: Response) => {
 
 interface ItemsData {
   [index: string]: {
+    _id: string;
     name: string;
     type: string;
     rarity: string;
@@ -51,6 +52,7 @@ const extractDocumentData = (document: Document) => {
 
     if (!allItems[text]) {
       allItems[text] = {
+        _id: text.toLocaleLowerCase(),
         name: text,
         type: '',
         rarity: '',
