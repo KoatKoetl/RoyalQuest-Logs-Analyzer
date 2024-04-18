@@ -1,11 +1,14 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import jsdom from 'jsdom';
-import { Item } from '../models/itemSchema.js';
+import { ItemsData } from '../models/ItemInterface.js';
+import { createMongooseModel, itemSchema } from '../models/itemSchemas.js';
+import convertToArray from '../utils/convertToArray.js';
+import { storeAllItemsInDB } from './addToDatabase.js';
 
 const { JSDOM } = jsdom;
 
-const storeMongoDB = (req: Request, res: Response) => {
+const storeMongoDB_allitems = (req: Request, res: Response) => {
   if (!req.file) {
     return res.status(400).send({ error: 'Error uploading file' });
   }
@@ -29,20 +32,10 @@ const processData = (data: string, res: Response) => {
   const fileDOM = new JSDOM(data);
   const document = fileDOM.window.document;
   const itemsData = extractDocumentData(document);
-  addToDatabase(itemsData, res);
-};
+  const uniqueItem = createMongooseModel('allgameitems', itemSchema);
 
-interface ItemsData {
-  [index: string]: {
-    _id: string;
-    name: string;
-    type: string;
-    rarity: string;
-    rarityColor: string;
-    marketPrice: number | string;
-    NPCPrice: number | string;
-  };
-}
+  storeAllItemsInDB(itemsData, res, uniqueItem);
+};
 
 const extractDocumentData = (document: Document) => {
   const allItems: ItemsData = {};
@@ -63,27 +56,9 @@ const extractDocumentData = (document: Document) => {
     }
   });
 
-  const allItemsArray = Object.entries(allItems).map(([key, value]) => ({ id: key, ...value }));
+  const allItemsArray = convertToArray(allItems);
 
   return allItemsArray;
 };
 
-const addToDatabase = async (itemsData: {}[], res: Response) => {
-  try {
-    const bulkOps = itemsData.map((item) => ({
-      insertOne: { document: item },
-    }));
-    const result = await Item.bulkWrite(bulkOps, { ordered: false });
-    res.status(200).send({ success: 'Successfully inserted all items', insertedCount: 'Items inserted: ' + result.insertedCount });
-  } catch (error: any) {
-    if (error.code === 11000) {
-      console.log('Duplicate key error. Code:', error.code);
-      res.status(200).send({ success: 'Some items successfully inserted. Duplicates are skipped' });
-    } else {
-      console.log('MongoDB write error.', error);
-      res.status(500).send({ error: 'Internal Server Error' });
-    }
-  }
-};
-
-export default storeMongoDB;
+export default storeMongoDB_allitems;
