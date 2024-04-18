@@ -1,26 +1,29 @@
-import { Item } from '../models/itemSchema.js';
+import { Request, Response } from 'express';
+import { createMongooseModel, itemSchema } from '../models/itemSchemas.js';
 
-const findItemInDB = async (req: any, res: any) => {
+const uniqueItem = createMongooseModel('allgameitems', itemSchema);
+
+const findItemInDB = async (req: Request, res: Response) => {
   try {
-    const data = await Item.find({});
+    const data = await uniqueItem.find({});
     res.status(200).json(data);
   } catch (err) {
     res.status(404).send({ err: err });
   }
 };
 
-const findItemByIDinDB = async (req: any, res: any) => {
+const findItemByIDinDB = async (req: Request, res: Response) => {
   try {
-    const data = await Item.findById(req.params.id);
+    const data = await uniqueItem.findById(req.params.id);
     res.status(200).json(data);
   } catch (err) {
     res.status(404).send({ error: err });
   }
 };
 
-const postItemInDB = async (req: any, res: any) => {
+const postItemInDB = async (req: Request, res: Response) => {
   try {
-    const data = await Item.create(req.body);
+    const data = await uniqueItem.create(req.body);
     res.status(200).json(data);
   } catch (err) {
     res.status(404).send({ error: err });
