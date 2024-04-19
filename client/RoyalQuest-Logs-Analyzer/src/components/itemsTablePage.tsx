@@ -5,10 +5,10 @@ import { useLocation } from 'react-router-dom';
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 50 },
-  { field: 'itemName', headerName: 'Item name', width: 500 },
+  { field: 'name', headerName: 'Item name', width: 500 },
   { field: 'amount', headerName: 'Amount', width: 150 },
   {
-    field: 'npcPrice',
+    field: 'NPCPrice',
     headerName: 'NPC`s price',
     width: 250,
   },
@@ -20,21 +20,27 @@ const columns: GridColDef[] = [
   },
 ];
 
-interface RowItem {
-  id: number | string;
-  itemName: string;
-  amount: number | string;
-  npcPrice: number | string;
-  marketPrice: number | string;
+interface receivedItem {
+  _id: string;
+  name: string;
+  type: string;
+  rarity: string;
+  rarityColor: string;
+  marketPrice: number;
+  NPCPrice: number;
+  amount: number;
 }
-
-interface DataItem {
-  [key: string]: { amount: number };
+interface rowsItem {
+  id: number;
+  name: string;
+  amount: number;
+  NPCPrice: number;
+  marketPrice: number;
 }
 
 const ItemsTable = () => {
   const { state }: { state: string } = useLocation();
-  const [itemRows, setItemsRows] = useState<RowItem[]>([]);
+  const [itemRows, setItemsRows] = useState<rowsItem[]>([]);
 
   useEffect(() => {
     fetchData(state);
@@ -42,9 +48,9 @@ const ItemsTable = () => {
 
   const fetchData = async (fileName: string) => {
     try {
-      const response: AxiosResponse = await axios(`http://localhost:3000/api/downloads/${fileName}`);
+      const response: AxiosResponse = await axios(`http://localhost:3000/api/collectionitems/${fileName}`);
       if (response.status === 200) {
-        createItemRows(response.data['Получено']);
+        createItemRows(response.data);
       } else {
         console.log(`${response.status}: ${response.statusText}`);
       }
@@ -53,13 +59,12 @@ const ItemsTable = () => {
     }
   };
 
-  const createItemRows = (responseData: DataItem) => {
-    let i = 0;
-    const rows: RowItem[] = [];
-    for (const item in responseData) {
-      const row: RowItem = { id: i++, itemName: item, amount: responseData[item].amount, npcPrice: 0, marketPrice: 0 };
+  const createItemRows = (responseData: receivedItem[]) => {
+    const rows: rowsItem[] = [];
+    responseData.forEach((item, index) => {
+      const row: rowsItem = { id: index, name: item.name, amount: item.amount, NPCPrice: item.NPCPrice, marketPrice: item.marketPrice };
       rows.push(row);
-    }
+    });
     setItemsRows(rows);
   };
 
