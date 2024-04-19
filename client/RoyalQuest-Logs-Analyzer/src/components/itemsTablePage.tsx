@@ -18,6 +18,18 @@ const columns: GridColDef[] = [
     width: 250,
     editable: true,
   },
+  {
+    field: 'rarity',
+    headerName: 'Rarity',
+    width: 250,
+    editable: true,
+  },
+  {
+    field: 'type',
+    headerName: 'Type',
+    width: 250,
+    editable: true,
+  },
 ];
 
 interface receivedItem {
@@ -36,6 +48,8 @@ interface rowsItem {
   amount: number;
   NPCPrice: number;
   marketPrice: number;
+  rarity: string;
+  type: string;
 }
 
 const ItemsTable = () => {
@@ -62,7 +76,15 @@ const ItemsTable = () => {
   const createItemRows = (responseData: receivedItem[]) => {
     const rows: rowsItem[] = [];
     responseData.forEach((item, index) => {
-      const row: rowsItem = { id: index, name: item.name, amount: item.amount, NPCPrice: item.NPCPrice, marketPrice: item.marketPrice };
+      const row: rowsItem = {
+        id: index,
+        name: item.name,
+        amount: item.amount,
+        NPCPrice: item.NPCPrice,
+        marketPrice: item.marketPrice,
+        rarity: item.rarity,
+        type: item.type,
+      };
       rows.push(row);
     });
     setItemsRows(rows);
