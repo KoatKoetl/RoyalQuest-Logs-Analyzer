@@ -16,13 +16,13 @@ const GetFilesPage = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/api/downloads', {
+      const response = await fetch('http://localhost:3000/api/databasecollections', {
         method: 'GET',
       });
 
       if (response.ok) {
         const result = await response.json();
-        setData(result.files);
+        setData(result);
 
         setAlertMessage('Data successfully processed');
         setIsFileDownloaded(true);
