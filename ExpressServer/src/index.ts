@@ -7,6 +7,7 @@ import path from 'path';
 import connectToMongoDB from './controllers/connectToDB.js';
 import limiter from './middleware/express-rate-limit.js';
 import router from './routes/routes.js';
+import cleanupOldFiles from './utils/cleanUpOldFiles.js';
 
 const app = express();
 dotenv.config();
@@ -27,6 +28,8 @@ app.get('*', (req, res) => {
   const filePath = path.resolve('../client/RoyalQuest-Logs-Analyzer/dist/index.html');
   res.sendFile(filePath);
 });
+
+cleanupOldFiles.start();
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
