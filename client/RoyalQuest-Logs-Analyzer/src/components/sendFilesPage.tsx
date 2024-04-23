@@ -9,6 +9,7 @@ const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // This function prevents multiple fetch calls by clicking the submit button
     event.preventDefault();
 
     if (isSubmitting) {
