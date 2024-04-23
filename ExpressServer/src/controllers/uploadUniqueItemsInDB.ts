@@ -4,7 +4,8 @@ import jsdom from 'jsdom';
 import { ItemsData } from '../models/ItemInterface.js';
 import { createMongooseModel, itemSchema } from '../models/itemSchemas.js';
 import convertToArray from '../utils/convertToArray.js';
-import { storeAllItemsInDB } from './addToDatabase.js';
+import { fillTheNPCPrices, storeAllItemsInDB } from './addToDatabase.js';
+import { getNPCPrices } from './getItemPrices.js';
 
 const { JSDOM } = jsdom;
 
@@ -35,6 +36,7 @@ const processData = (data: string, res: Response) => {
   const uniqueItem = createMongooseModel('allgameitems', itemSchema);
 
   storeAllItemsInDB(itemsData, res, uniqueItem);
+  fillTheNPCPrices(itemsData, res, uniqueItem);
 };
 
 const extractDocumentData = (document: Document) => {
@@ -54,6 +56,8 @@ const extractDocumentData = (document: Document) => {
         NPCPrice: 0,
       };
     }
+
+    getNPCPrices(element, allItems);
   });
 
   const allItemsArray = convertToArray(allItems);

@@ -7,14 +7,29 @@ const storeAllItemsInDB = async (itemsData: {}[], res: Response, itemModel: any)
       insertOne: { document: item },
     }));
     const result = await itemModel.bulkWrite(bulkOps, { ordered: false });
+  } catch (error: any) {
+    console.log('Duplicate key error in allgameitems. Code:', error.code);
+  }
+};
+
+const fillTheNPCPrices = async (itemsData: {}[], res: Response, itemModel: any) => {
+  try {
+    const bulkOps = itemsData.map((item: ItemsDataExtended) => ({
+      updateOne: {
+        filter: { _id: item._id },
+        update: { $set: { NPCPrice: { $cond: { if: { $gt: ['$NPCPrice', 0] }, then: item.NPCPrice, else: 0 } } } },
+        upsert: true,
+      },
+    }));
+    const result = await itemModel.bulkWrite(bulkOps, { ordered: false });
     res.status(200).send({
-      success: 'Succesfully added new game items in database',
+      success: 'Succesfully added new game items in database and set the NPC prices',
       insertedCount: 'Total number of new items added: ' + result.insertedCount,
     });
   } catch (error: any) {
     if (error.code === 11000) {
       console.log('Duplicate key error in allgameitems. Code:', error.code);
-      res.status(200).send({ success: 'New items succesfully added. Duplicates are skipped' });
+      res.status(200).send({ success: 'New items succesfully added. NPC prices are added. Duplicates are skipped' });
     } else {
       console.log('MongoDB write error.', error);
       res.status(500).send({ error: 'Internal Server Error' });
@@ -39,4 +54,4 @@ const storeCurrentLog = async (itemsData: {}[], res: Response, itemModel: any) =
   }
 };
 
-export { storeAllItemsInDB, storeCurrentLog };
+export { fillTheNPCPrices, storeAllItemsInDB, storeCurrentLog };
