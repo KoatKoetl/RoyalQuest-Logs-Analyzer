@@ -1,10 +1,11 @@
-import { ChangeEvent, useState } from 'react';
+import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const GetFilesPage = () => {
   const [fileName, setFileName] = useState<string>('');
 
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
     setFileName(event.target.value);
   };
 
@@ -43,29 +44,31 @@ const GetFilesPage = () => {
           <span className="md:text-6xl royalQuestGradient p-2">Royal Quest </span>
           <span className="md:text-6xl royalQuestGradient p-2">Log Scanner</span>
         </h1>
-        <h2 className={`text-4xl font-bold text-center p-4 ${isFileDownloaded ? 'text-green-700' : 'text-red-700'}`}>{alertMessage}</h2>
+        <h2 className={`text-4xl font-bold text-center p-4 ${isFileDownloaded ? 'text-green-700' : 'text-red-700'}`}>
+          <span>{alertMessage}</span> <br />
+          <span></span>
+        </h2>
 
         {isFileDownloaded ? (
-          <div>
+          <div className="flex flex-col items-center justify-center">
             <Link to={'ItemsTable'} state={fileName}>
-              <button
-                type="submit"
-                className="text-2xl m-2 border px-2 py-1 hover:bg-[#ce9b50] hover:text-white hover:rounded-br-2xl hover:rounded-bl-2xl transition-all duration-200"
-              >
-                Build a table
-              </button>
+              <Button variant="contained" color="success" type="submit">
+                Build data table
+              </Button>
             </Link>
 
             <SelectFile data={data} handleSelectChange={handleSelectChange} fileName={fileName} />
           </div>
         ) : (
-          <div>
-            <button
-              type="submit"
-              className="text-2xl border px-2 py-1 hover:bg-[#ce9b50] hover:text-white hover:rounded-br-2xl hover:rounded-bl-2xl transition-all duration-200"
-            >
+          <div className="flex gap-4">
+            <Link to="/">
+              <Button variant="contained" color="primary" type="submit">
+                ↽ Return to file loading
+              </Button>
+            </Link>
+            <Button variant="contained" color="success" type="submit">
               Start data processing
-            </button>
+            </Button>
           </div>
         )}
       </form>
@@ -79,24 +82,26 @@ const SelectFile = ({
   fileName,
 }: {
   data: Array<string>;
-  handleSelectChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  handleSelectChange: (event: SelectChangeEvent<string>) => void;
   fileName: string;
 }) => {
   return (
     <>
-      <label htmlFor="files" className="text-xl mx-2">
-        Choose a file
-      </label>
-      <select name="files" id="files" className="p-1" value={fileName} onChange={handleSelectChange}>
-        <option value="default" key="default">
-          none
-        </option>
-        {data.map((file) => (
-          <option key={file} value={file} className="bg-white">
-            {file}
-          </option>
-        ))}
-      </select>
+      <div className="p-4">
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="files">File</InputLabel>
+          <Select name="files" labelId="files" value={fileName} onChange={handleSelectChange} label="File">
+            <MenuItem value="default" key="default">
+              none
+            </MenuItem>
+            {data.map((file) => (
+              <MenuItem key={file} value={file} className="bg-white">
+                {file}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
     </>
   );
 };

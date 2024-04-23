@@ -1,6 +1,8 @@
 import { CircularProgress } from '@mui/material';
+import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AlertStatus } from './alertStatus';
 
 const validExtensions: Array<string> = ['htm', 'html'];
@@ -35,13 +37,16 @@ const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<
         </label>
         <input type="file" id="file" name="file" accept="text/htm, text/html" required />
       </div>
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="text-2xl border px-2 py-1 hover:bg-[#ce9b50] hover:text-white hover:rounded-br-2xl hover:rounded-bl-2xl transition-all duration-200"
-      >
-        Start scanning
-      </button>
+      <div className="flex gap-2">
+        <Button type="submit" color="success" variant="contained" disabled={isSubmitting}>
+          Start scanning
+        </Button>
+        <Link to="getFilesPage">
+          <Button variant="contained" color="primary">
+            Continue without scanning ⇁
+          </Button>
+        </Link>
+      </div>
     </form>
   );
 };
