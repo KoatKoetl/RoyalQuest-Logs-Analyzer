@@ -6,8 +6,24 @@ import { AlertStatus } from './alertStatus';
 const validExtensions: Array<string> = ['htm', 'html'];
 
 const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    await handleSubmit(event);
+
+    setIsSubmitting(false);
+  };
+
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data" className="flex flex-col justify-center items-center sm:p-6 gap-2">
+    <form onSubmit={handleFormSubmit} encType="multipart/form-data" className="flex flex-col justify-center items-center sm:p-6 gap-2">
       <h1 className="text-center font-bold mb-8 bg-clip-text">
         <span className="md:text-6xl royalQuestGradient p-2">Royal Quest </span>
         <span className="md:text-6xl royalQuestGradient p-2">Log Scanner</span>
@@ -20,6 +36,7 @@ const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<
       </div>
       <button
         type="submit"
+        disabled={isSubmitting}
         className="text-2xl border px-2 py-1 hover:bg-[#ce9b50] hover:text-white hover:rounded-br-2xl hover:rounded-bl-2xl transition-all duration-200"
       >
         Start scanning
