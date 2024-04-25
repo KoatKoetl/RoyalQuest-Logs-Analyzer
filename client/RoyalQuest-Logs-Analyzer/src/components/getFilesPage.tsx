@@ -41,8 +41,7 @@ const GetFilesPage = () => {
     <div className="flex flex-col justify-center items-center h-full font-Bona-Nova">
       <form encType="multipart/form-data" onSubmit={handleSubmit} className="flex flex-col justify-center items-center sm:p-6 gap-2">
         <h1 className="text-center font-bold mb-8 bg-clip-text">
-          <span className="md:text-6xl royalQuestGradient p-2">Royal Quest </span>
-          <span className="md:text-6xl royalQuestGradient p-2">Log Scanner</span>
+          <img src="public/royalQuestLogo.png" alt="Royal Quest game logo" />
         </h1>
         <h2 className={`text-4xl font-bold text-center p-4 ${isFileDownloaded ? 'text-green-700' : 'text-red-700'}`}>
           <span>{alertMessage}</span> <br />
