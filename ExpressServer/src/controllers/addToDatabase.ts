@@ -12,12 +12,17 @@ const storeAllItemsInDB = async (itemsData: {}[], res: Response, itemModel: any)
   }
 };
 
-const fillTheNPCPrices = async (itemsData: {}[], res: Response, itemModel: any) => {
+const fillThePrices = async (itemsData: {}[], res: Response, itemModel: any) => {
   try {
     const bulkOps = itemsData.map((item: ItemsDataExtended) => ({
       updateOne: {
         filter: { _id: item._id },
-        update: { $set: { NPCPrice: { $cond: { if: { $gt: ['$NPCPrice', 0] }, then: item.NPCPrice, else: 0 } } } },
+        update: {
+          $set: {
+            NPCPrice: item.NPCPrice,
+            marketPrice: item.marketPrice,
+          },
+        },
         upsert: true,
       },
     }));
@@ -54,4 +59,4 @@ const storeCurrentLog = async (itemsData: {}[], res: Response, itemModel: any) =
   }
 };
 
-export { fillTheNPCPrices, storeAllItemsInDB, storeCurrentLog };
+export { fillThePrices, storeAllItemsInDB, storeCurrentLog };
