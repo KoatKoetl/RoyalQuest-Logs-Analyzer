@@ -1,3 +1,4 @@
+import { count } from 'console';
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import jsdom from 'jsdom';
@@ -44,21 +45,24 @@ const extractDocumentData = (document: Document) => {
 
   document.querySelectorAll('u').forEach((element) => {
     const text: string = element.textContent?.trim().replace(/ /g, '_') as string;
+    const countSlots = element.querySelectorAll('img').length;
+    const itemName = countSlots ? `${text}_${countSlots}-слотовый` : text;
 
-    if (!allItems[text]) {
-      allItems[text] = {
-        _id: text.toLocaleLowerCase(),
-        name: text,
+    if (!allItems[text] || countSlots) {
+      allItems[itemName] = {
+        _id: itemName.toLocaleLowerCase(),
+        name: itemName,
         type: '',
         rarity: '',
         rarityColor: '',
         marketPrice: 0,
         NPCPrice: 0,
+        slots: countSlots || undefined,
       };
     }
 
-    getNPCPrices(element, allItems);
-    getMarketPrices(element, allItems);
+    getNPCPrices(element, itemName, allItems);
+    getMarketPrices(element, itemName, allItems);
   });
 
   const allItemsArray = convertToArray(allItems);

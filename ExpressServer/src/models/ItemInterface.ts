@@ -7,6 +7,7 @@ interface ItemsData {
     rarityColor: string;
     marketPrice: number | string;
     NPCPrice: number | string;
+    slots?: number;
   };
 }
 
@@ -22,6 +23,7 @@ interface ItemsDataExtended extends ItemsData {
 
     // Extended fields
     amount: number;
+    slots?: number;
   };
 }
 

@@ -9,6 +9,7 @@ const itemSchema = new mongoose.Schema({
   marketPrice: Number,
   NPCPrice: Number,
   amount: { type: Number, default: undefined },
+  slots: { type: Number, default: undefined },
 });
 
 const createMongooseModel = (collectionName: string, itemSchema: Schema) => {
