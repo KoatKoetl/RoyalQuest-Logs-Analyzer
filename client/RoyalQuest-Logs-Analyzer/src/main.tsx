@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
@@ -8,6 +8,8 @@ const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <Suspense fallback={<div className="h-full flex justify-center items-center">Loading page...</div>}>
+      <RouterProvider router={router}></RouterProvider>
+    </Suspense>
   </React.StrictMode>
 );

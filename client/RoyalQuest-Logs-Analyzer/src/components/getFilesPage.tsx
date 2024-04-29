@@ -104,4 +104,4 @@ const SelectFile = ({
   );
 };
 
-export { GetFilesPage };
+export default GetFilesPage;

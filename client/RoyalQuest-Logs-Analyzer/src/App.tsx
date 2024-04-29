@@ -1,4 +1,4 @@
-import { SendFilesPage } from './components/sendFilesPage';
+import SendFilesPage from './components/sendFilesPage';
 
 function App() {
   return (

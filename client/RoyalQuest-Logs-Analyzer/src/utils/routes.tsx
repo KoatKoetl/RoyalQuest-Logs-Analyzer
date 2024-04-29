@@ -1,8 +1,11 @@
-import App from '../App';
-import { GetFilesPage } from '../components/getFilesPage';
-import { ItemsTable } from '../components/itemsTablePage';
+import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
-const routes = [
+const App = lazy(() => import('../App'));
+const GetFilesPage = lazy(() => import('../components/getFilesPage'));
+const ItemsTablePage = lazy(() => import('../components/itemsTablePage'));
+
+const routes: RouteObject[] = [
   {
     path: '/',
     element: <App />,
@@ -13,7 +16,7 @@ const routes = [
   },
   {
     path: 'getFilesPage/itemsTable',
-    element: <ItemsTable key={document.location.href} />,
+    element: <ItemsTablePage key={document.location.href} />,
   },
 ];
 

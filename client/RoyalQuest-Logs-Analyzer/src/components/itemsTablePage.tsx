@@ -113,4 +113,4 @@ const ItemsTable = () => {
   );
 };
 
-export { ItemsTable };
+export default ItemsTable;

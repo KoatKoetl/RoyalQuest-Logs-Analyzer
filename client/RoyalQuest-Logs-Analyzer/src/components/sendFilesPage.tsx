@@ -114,4 +114,4 @@ const SendFilesPage = () => {
   );
 };
 
-export { SendFilesPage };
+export default SendFilesPage;
