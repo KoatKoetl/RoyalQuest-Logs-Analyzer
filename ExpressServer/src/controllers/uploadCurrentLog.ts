@@ -3,7 +3,7 @@ import fs from 'fs';
 import jsdom from 'jsdom';
 import path from 'path';
 import { ItemsDataExtended } from '../models/ItemInterface.js';
-import { createMongooseModel, itemSchema } from '../models/itemSchemas.js';
+import { createMongooseModel, itemSchema } from '../models/Schemas.js';
 import convertToArray from '../utils/convertToArray.js';
 import { storeCurrentLog } from './addToDatabase.js';
 

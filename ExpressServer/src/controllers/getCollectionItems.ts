@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createMongooseModel, itemSchema } from '../models/itemSchemas.js';
+import { createMongooseModel, itemSchema } from '../models/Schemas.js';
 
 const getCollectionItems = async (req: Request, res: Response) => {
   const filename = req.params.filename;
