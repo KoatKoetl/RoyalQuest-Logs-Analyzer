@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertStatus } from './alertStatus';
+import GameLOGO from './gameLogo';
 
 const validExtensions: Array<string> = ['htm', 'html'];
 
@@ -27,11 +28,7 @@ const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<
 
   return (
     <form onSubmit={handleFormSubmit} encType="multipart/form-data" className="flex flex-col justify-center items-center sm:p-6 gap-5">
-      <h1 className="text-center font-bold bg-clip-text">
-        {/* <span className="md:text-6xl royalQuestGradient p-2">Royal Quest </span>
-        <span className="md:text-6xl royalQuestGradient p-2">Log Scanner</span> */}
-        <img src="/royalQuestLogo.png" alt="Royal Quest game logo" />
-      </h1>
+      <GameLOGO></GameLOGO>
       <div className="flex gap-2 border-transparent border-b-2 border-t-2 hover:border-[#ce9b50] p-1 transition-colors">
         <label htmlFor="file" className="sm:text-2xl font-bold">
           Select a log file to scan:

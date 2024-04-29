@@ -1,6 +1,7 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import GameLOGO from './gameLogo';
 
 const GetFilesPage = () => {
   const [fileName, setFileName] = useState<string>('');
@@ -40,9 +41,7 @@ const GetFilesPage = () => {
   return (
     <div className="flex flex-col justify-center items-center h-full font-Bona-Nova">
       <form encType="multipart/form-data" onSubmit={handleSubmit} className="flex flex-col justify-center items-center sm:p-6 gap-2">
-        <h1 className="text-center font-bold mb-8 bg-clip-text">
-          <img src="/royalQuestLogo.png" alt="Royal Quest game logo" />
-        </h1>
+        <GameLOGO></GameLOGO>
         <h2 className={`text-4xl font-bold text-center p-4 ${isFileDownloaded ? 'text-green-700' : 'text-red-700'}`}>
           <span>{alertMessage}</span> <br />
           <span></span>
