@@ -28,13 +28,13 @@ const fillThePrices = async (itemsData: {}[], res: Response, itemModel: any) => 
     }));
     const result = await itemModel.bulkWrite(bulkOps, { ordered: false });
     res.status(200).send({
-      success: 'Succesfully added new game items in database and set the NPC prices',
+      success: 'Succesfully added new game items in database and set the prices',
       insertedCount: 'Total number of new items added: ' + result.insertedCount,
     });
   } catch (error: any) {
     if (error.code === 11000) {
       console.log('Duplicate key error in allgameitems. Code:', error.code);
-      res.status(200).send({ success: 'New items succesfully added. NPC prices are added. Duplicates are skipped' });
+      res.status(200).send({ success: 'New items succesfully added. Prices are added. Duplicates are skipped' });
     } else {
       console.log('MongoDB write error.', error);
       res.status(500).send({ error: 'Internal Server Error' });
