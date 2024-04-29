@@ -2,11 +2,11 @@ import { count } from 'console';
 import express, { Request, Response } from 'express';
 import fs from 'fs';
 import jsdom from 'jsdom';
-import { ItemsData } from '../models/ItemInterface.js';
-import { createMongooseModel, itemSchema } from '../models/Schemas.js';
-import convertToArray from '../utils/convertToArray.js';
+import { ItemsData } from '../../models/ItemInterface.js';
+import { createMongooseModel, itemSchema } from '../../models/Schemas.js';
+import convertToArray from '../../utils/convertToArray.js';
+import { getMarketPrices, getNPCPrices } from '../getItemPrices.js';
 import { fillThePrices, storeAllItemsInDB } from './addToDatabase.js';
-import { getMarketPrices, getNPCPrices } from './getItemPrices.js';
 
 const { JSDOM } = jsdom;
 

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { ItemsDataExtended } from '../models/ItemInterface.js';
+import { ItemsDataExtended } from '../../models/ItemInterface.js';
 
 const storeAllItemsInDB = async (itemsData: {}[], res: Response, itemModel: any) => {
   try {
