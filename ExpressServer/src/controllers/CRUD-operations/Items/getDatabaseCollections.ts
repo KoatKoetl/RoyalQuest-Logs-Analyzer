@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import connectToMongoDB from '../connectToDB.js';
+import connectToMongoDB from '../../connectToDB.js';
 
 const getDatabaseCollections = (req: Request, res: Response) => {
   connectToMongoDB().then(async () => {

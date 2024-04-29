@@ -6,7 +6,8 @@ import express from 'express';
 import path from 'path';
 import connectToMongoDB from './controllers/connectToDB.js';
 import limiter from './middleware/express-rate-limit.js';
-import router from './routes/routes.js';
+import authRouter from './routes/authRoutes.js';
+import itemRouter from './routes/itemCRUDroutes.js';
 import cleanupOldFiles from './utils/cleanUpOldFiles.js';
 
 const app = express();
@@ -21,7 +22,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(limiter);
-app.use('/api', router);
+app.use('/api', itemRouter);
+app.use('/api/auth', authRouter);
 app.use('/', express.static(path.join('../client/RoyalQuest-Logs-Analyzer/dist')));
 
 app.get('*', (req, res) => {
