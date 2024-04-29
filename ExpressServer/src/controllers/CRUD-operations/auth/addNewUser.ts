@@ -17,6 +17,7 @@ const registerNewUser = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new userModel({
+      _id: login,
       login: login,
       password: hashedPassword,
     });
@@ -24,7 +25,7 @@ const registerNewUser = async (req: Request, res: Response) => {
 
     res.status(201).send({ success: 'User created successfully' });
   } catch (error) {
-    res.status(500).send({ error: error });
+    res.status(500).send({ error: 'Internal server error' });
   }
 };
 
