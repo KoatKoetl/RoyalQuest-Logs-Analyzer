@@ -39,7 +39,7 @@ const SendFileForm = ({ handleSubmit }: { handleSubmit: (event: React.FormEvent<
         <Button type="submit" color="success" variant="contained" disabled={isSubmitting}>
           Start scanning
         </Button>
-        <Link to="getFilesPage">
+        <Link to="processData">
           <Button variant="contained" color="primary">
             Continue without scanning ⇁
           </Button>
@@ -103,7 +103,7 @@ const SendFilesPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-full font-Bona-Nova">
+    <div className="flex flex-col justify-center items-center h-[75%] font-Bona-Nova">
       {!scanIsClicked ? (
         <SendFileForm handleSubmit={handleSubmit} />
       ) : (

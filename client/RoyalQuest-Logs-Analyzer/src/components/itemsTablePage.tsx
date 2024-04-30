@@ -91,7 +91,7 @@ const ItemsTable = () => {
   };
 
   return (
-    <div>
+    <div className="mt-20">
       <DataGrid
         rows={itemRows}
         columns={columns}
