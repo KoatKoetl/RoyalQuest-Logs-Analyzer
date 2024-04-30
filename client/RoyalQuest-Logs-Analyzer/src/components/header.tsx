@@ -1,6 +1,7 @@
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -10,7 +11,6 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -119,16 +119,30 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Log in', 'Sign in'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <Link to={index % 2 === 0 ? 'login' : 'registration'}>
-                <ListItemButton>
-                  <ListItemIcon>{index % 2 === 0 ? <LoginIcon /> : <AppRegistrationIcon />}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-          ))}
+          <Link to="/">
+            <ListItemButton>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home page" />
+            </ListItemButton>
+          </Link>
+          <Link to="login">
+            <ListItemButton>
+              <ListItemIcon>
+                <LoginIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log in" />
+            </ListItemButton>
+          </Link>
+          <Link to="registration">
+            <ListItemButton>
+              <ListItemIcon>
+                <AppRegistrationIcon />
+              </ListItemIcon>
+              <ListItemText primary="Register" />
+            </ListItemButton>
+          </Link>
         </List>
       </Drawer>
     </Box>
