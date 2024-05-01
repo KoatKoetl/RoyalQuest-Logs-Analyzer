@@ -2,7 +2,6 @@ import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 
-const App = lazy(() => import('../App'));
 const HomePage = lazy(() => import('../components/HomePage'));
 const GetFilesPage = lazy(() => import('../components/getFilesPage'));
 const ItemsTablePage = lazy(() => import('../components/itemsTablePage'));
