@@ -12,7 +12,6 @@ const routes: RouteObject[] = [
   {
     element: <Layout />,
     children: [
-      // Change homepage to have the app overview and after navigate to the sendfile page
       {
         path: '/',
         element: <HomePage />,
@@ -22,10 +21,6 @@ const routes: RouteObject[] = [
         element: <SendFilesPage />,
       },
       {
-        path: 'registration',
-        element: <RegistrationPage key={document.location.href} />,
-      },
-      {
         path: 'sendFiles/processData',
         element: <GetFilesPage key={document.location.href} />,
         children: [],
@@ -33,6 +28,11 @@ const routes: RouteObject[] = [
       {
         path: 'sendFiles/processData/itemsTable',
         element: <ItemsTablePage key={document.location.href} />,
+      },
+
+      {
+        path: 'registration',
+        element: <RegistrationPage key={document.location.href} />,
       },
     ],
   },
