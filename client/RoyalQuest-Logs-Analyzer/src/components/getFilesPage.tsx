@@ -39,7 +39,7 @@ const GetFilesPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-[75%] font-Bona-Nova">
+    <div className="flex flex-col justify-center items-center mt-16 font-Bona-Nova">
       <form encType="multipart/form-data" onSubmit={handleSubmit} className="flex flex-col justify-center items-center sm:p-6 gap-2">
         <GameLOGO></GameLOGO>
         <h2 className={`text-4xl font-bold text-center p-4 ${isFileDownloaded ? 'text-green-700' : 'text-red-700'}`}>
@@ -49,7 +49,7 @@ const GetFilesPage = () => {
 
         {isFileDownloaded ? (
           <div className="flex flex-col items-center justify-center">
-            <Link to={'itemsTable'} state={fileName}>
+            <Link to="itemsTable" state={fileName}>
               <Button variant="contained" color="success" type="submit">
                 Build data table
               </Button>
@@ -59,7 +59,7 @@ const GetFilesPage = () => {
           </div>
         ) : (
           <div className="flex gap-4">
-            <Link to="/">
+            <Link to="/sendFiles">
               <Button variant="contained" color="primary" type="submit">
                 ↽ Return to file loading
               </Button>

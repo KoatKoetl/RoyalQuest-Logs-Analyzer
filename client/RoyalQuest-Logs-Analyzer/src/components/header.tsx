@@ -5,8 +5,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
@@ -83,10 +81,9 @@ export default function PersistentDrawerLeft() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open} color={'transparent'}>
-        <Toolbar>
+    <>
+      <AppBar position="fixed" open={open} color="inherit">
+        <Toolbar className="">
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -97,7 +94,9 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            RQ Log Analyzer
+            <Link to="/" aria-labelledby="homepage link" title="Logo">
+              RQ Log Analyzer
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -127,7 +126,8 @@ export default function PersistentDrawerLeft() {
               <ListItemText primary="Home page" />
             </ListItemButton>
           </Link>
-          <Link to="login">
+          <Divider variant="middle" />
+          <Link to="/login">
             <ListItemButton>
               <ListItemIcon>
                 <LoginIcon />
@@ -135,7 +135,7 @@ export default function PersistentDrawerLeft() {
               <ListItemText primary="Log in" />
             </ListItemButton>
           </Link>
-          <Link to="registration">
+          <Link to="/registration">
             <ListItemButton>
               <ListItemIcon>
                 <AppRegistrationIcon />
@@ -145,6 +145,6 @@ export default function PersistentDrawerLeft() {
           </Link>
         </List>
       </Drawer>
-    </Box>
+    </>
   );
 }

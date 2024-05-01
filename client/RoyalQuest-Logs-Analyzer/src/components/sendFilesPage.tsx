@@ -103,7 +103,7 @@ const SendFilesPage = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-[75%] font-Bona-Nova">
+    <div className="flex flex-col justify-center items-center mt-16 font-Bona-Nova">
       {!scanIsClicked ? (
         <SendFileForm handleSubmit={handleSubmit} />
       ) : (
