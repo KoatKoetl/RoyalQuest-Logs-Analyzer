@@ -7,6 +7,7 @@ const GetFilesPage = lazy(() => import('../components/getFilesPage'));
 const ItemsTablePage = lazy(() => import('../components/itemsTablePage'));
 const RegistrationPage = lazy(() => import('../components/registerPage'));
 const SendFilesPage = lazy(() => import('../components/sendFilesPage'));
+const LogInPage = lazy(() => import('../components/logInPage'));
 
 const routes: RouteObject[] = [
   {
@@ -33,6 +34,10 @@ const routes: RouteObject[] = [
       {
         path: 'registration',
         element: <RegistrationPage key={document.location.href} />,
+      },
+      {
+        path: 'login',
+        element: <LogInPage key={document.location.href} />,
       },
     ],
   },
