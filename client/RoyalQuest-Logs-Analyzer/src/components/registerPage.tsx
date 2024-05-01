@@ -43,16 +43,21 @@ const RegistrationPage = () => {
           },
         });
 
-        if (createUser.status === 200) {
+        if (createUser.status === 201) {
           setMessage('User successfully registered');
           setSuccess(true);
         } else {
-          setMessage(`Error sending file - ${createUser.statusText}`);
+          setMessage(`Error creating user. Try again later`);
           setSuccess(false);
         }
       } catch (error) {
-        setMessage('Something went wrong. Try again later');
-        setSuccess(false);
+        if (axios.isAxiosError(error)) {
+          setMessage(error.response?.data.error);
+          setSuccess(false);
+        } else {
+          setMessage('Something went wrong. ' + error);
+          setSuccess(false);
+        }
       } finally {
         setTimeout(() => {
           setMessage('');
@@ -64,10 +69,13 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-full flex-col gap-4">
+    <div className="flex items-center justify-center h-full flex-col gap-4 mt-32">
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <Typography variant="h4" className="font-bold text-center">
+          Registration
+        </Typography>
         <FormControl>
-          <InputLabel htmlFor="login">Create a login</InputLabel>
+          <InputLabel htmlFor="login">Create a username</InputLabel>
           <Input
             id="login"
             aria-describedby="create user login"
