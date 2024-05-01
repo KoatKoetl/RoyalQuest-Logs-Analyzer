@@ -4,7 +4,6 @@
 
 body,
 #root {
-  height: 100svh;
   font-family:
     system-ui,
     -apple-system,
@@ -17,13 +16,4 @@ body,
     'Open Sans',
     'Helvetica Neue',
     sans-serif;
-}
-
-@layer base {
-  .royalQuestGradient {
-    background: -webkit-linear-gradient(#ce9b50, #d6a44c);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
 }
