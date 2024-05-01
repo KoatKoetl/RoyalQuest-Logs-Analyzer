@@ -52,7 +52,7 @@ interface rowsItem {
   type: string;
 }
 
-const ItemsTable = () => {
+const ItemsTablePage = () => {
   const { state }: { state: string } = useLocation();
   const [itemRows, setItemsRows] = useState<rowsItem[]>([]);
 
@@ -113,4 +113,4 @@ const ItemsTable = () => {
   );
 };
 
-export default ItemsTable;
+export default ItemsTablePage;
