@@ -33,12 +33,9 @@ const LogInPage = () => {
         },
       });
 
-      if (loginUser.status === 201) {
-        setMessage('User successfully registered');
+      if (loginUser.status === 200) {
+        setMessage('Login successful');
         setSuccess(true);
-      } else {
-        setMessage(`Error creating user. Try again later`);
-        setSuccess(false);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
