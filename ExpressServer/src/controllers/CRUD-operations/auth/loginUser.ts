@@ -12,13 +12,17 @@ const loginUser = async (req: Request, res: Response) => {
 
     if (!findUser) {
       res.status(404).send({ error: 'User not found' });
+      return;
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, findUser?.password as string);
 
     if (!isPasswordCorrect) {
-      res.status(400).send({ error: 'Invalid password' });
+      res.status(404).send({ error: 'Invalid password' });
+      return;
     }
+
+    // Here work with JWT authentication, because user already passed authentication
 
     res.status(200).send({ message: 'Login succesfull' });
   } catch (error) {
