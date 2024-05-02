@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc && node dist/utils/build.js",
-    "start": "node --inspect dist/index.js",
-    "dev": "npx tsx src/index.ts"
+    "start": "node --inspect dist/server.js",
+    "dev": "npx tsx src/server.ts"
   },
   "keywords": [],
   "author": "",
