@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   _id: String,
   login: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: { type: String, default: 'user' },
 });
 
 const refreshTokenSchema = new mongoose.Schema({
