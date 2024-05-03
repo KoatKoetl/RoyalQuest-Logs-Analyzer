@@ -30,24 +30,4 @@ const getRefreshToken = async (req: Request, res: Response) => {
   }
 };
 
-const logout = async (req: Request, res: Response) => {
-  try {
-    const currentToken = req.body.token;
-    const allTokens = await refreshTokenModel.find();
-
-    for (const tokenDoc of allTokens) {
-      const token = tokenDoc.refreshToken;
-
-      if (token === currentToken) {
-        await refreshTokenModel.deleteOne({ refreshToken: currentToken });
-        return res.sendStatus(204);
-      }
-    }
-  } catch (error) {
-    return res.sendStatus(500);
-  }
-};
-
-export { logout };
-
 export default getRefreshToken;
