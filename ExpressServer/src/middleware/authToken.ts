@@ -5,7 +5,7 @@ const authToken = (req: Request, res: Response, next: Function) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token === null) {
+  if (token == null) {
     return res.sendStatus(401);
   }
 
