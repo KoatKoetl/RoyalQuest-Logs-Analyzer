@@ -1,4 +1,4 @@
-import { ItemsData } from '../models/ItemInterface.js';
+import { ItemsData } from '../../../models/ItemInterface.js';
 
 const getNPCPrices = (element: HTMLElement, itemName: string, itemsObject: ItemsData) => {
   const parentElementValue: string | undefined = element.parentNode?.textContent?.trim();
