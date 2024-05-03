@@ -1,4 +1,4 @@
-import mongoose, { Schema, mongo } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const itemSchema = new mongoose.Schema({
   _id: String,
@@ -18,9 +18,16 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
+const refreshTokenSchema = new mongoose.Schema({
+  refreshToken: String,
+});
+
 const createMongooseModel = (collectionName: string, itemSchema: Schema) => {
   const newCollection = mongoose.model(collectionName, itemSchema);
   return newCollection;
 };
 
-export { createMongooseModel, itemSchema, userSchema };
+const refreshTokenModel = createMongooseModel('tokens', refreshTokenSchema);
+const userModel = createMongooseModel('users', userSchema);
+
+export { createMongooseModel, itemSchema, refreshTokenModel, userModel };

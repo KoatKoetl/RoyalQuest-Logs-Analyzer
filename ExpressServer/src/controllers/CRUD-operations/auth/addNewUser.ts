@@ -1,10 +1,8 @@
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
-import { createMongooseModel, userSchema } from '../../../models/Schemas.js';
+import { userModel } from '../../../models/Schemas.js';
 
 const registerNewUser = async (req: Request, res: Response) => {
-  const userModel = createMongooseModel('users', userSchema);
-
   try {
     const { login, password } = req.body;
 

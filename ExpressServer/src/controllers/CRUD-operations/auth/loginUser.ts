@@ -1,34 +1,48 @@
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
 import { Request, Response } from 'express';
-import { createMongooseModel, userSchema } from '../../../models/Schemas.js';
+import jwt from 'jsonwebtoken';
+import authToken from '../../../middleware/authToken.js';
+import { refreshTokenModel, userModel } from '../../../models/Schemas.js';
+
+dotenv.config();
 
 const loginUser = async (req: Request, res: Response) => {
   const { login, password } = req.body;
-
-  const userModel = createMongooseModel('users', userSchema);
 
   try {
     const findUser = await userModel.findOne({ login });
 
     if (!findUser) {
-      res.status(404).send({ error: 'User not found' });
-      return;
+      return res.status(404).send({ error: 'User not found' });
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, findUser?.password as string);
 
     if (!isPasswordCorrect) {
-      res.status(404).send({ error: 'Invalid password' });
-      return;
+      return res.status(404).send({ error: 'Invalid password' });
     }
 
-    // Here work with JWT authentication, because user already passed authentication
+    const username = login;
+    const user = { name: username };
 
-    res.status(200).send({ message: 'Login succesfull' });
+    const accessToken = generateAccessToken(user);
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET as string);
+
+    const newRefreshToken = new refreshTokenModel({ refreshToken: refreshToken });
+    await newRefreshToken.save();
+
+    res.status(200).send({ success: 'Login succesfull', accessToken: accessToken, refreshToken: refreshToken });
   } catch (error) {
     console.error('Error finding user or checking password', error);
     res.status(500).send({ error: 'Internal server error' });
   }
 };
 
+const generateAccessToken = (user: object) => {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '15m' });
+};
+
 export default loginUser;
+
+export { authToken, generateAccessToken };
