@@ -24,7 +24,7 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     const username = login;
-    const user = { name: username };
+    const user = { name: username, role: findUser.role };
 
     const accessToken = generateAccessToken(user);
     const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET as string);
@@ -34,7 +34,7 @@ const loginUser = async (req: Request, res: Response) => {
 
     res.status(200).send({ success: 'Login succesfull', accessToken: accessToken, refreshToken: refreshToken });
   } catch (error) {
-    console.error('Error finding user or checking password', error);
+    console.error('Error in username/password check. ', error);
     res.status(500).send({ error: 'Internal server error' });
   }
 };
