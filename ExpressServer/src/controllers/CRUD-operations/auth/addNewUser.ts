@@ -18,12 +18,13 @@ const registerNewUser = async (req: Request, res: Response) => {
       _id: login,
       login: login,
       password: hashedPassword,
+      role: 'user',
     });
     await newUser.save();
 
     res.status(201).send({ success: 'User created successfully' });
   } catch (error) {
-    res.status(500).send({ error: 'Internal server error' });
+    res.status(500).send({ error: 'User registration failed. Internal server error' });
   }
 };
 
