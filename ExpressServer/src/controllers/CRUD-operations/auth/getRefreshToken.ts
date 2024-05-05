@@ -7,19 +7,19 @@ import { generateAccessToken } from './loginUser.js';
 dotenv.config();
 
 const getRefreshToken = async (req: Request, res: Response) => {
-  if (!req.body.token) return res.sendStatus(401);
+  if (!req.body.refresh_token) return res.sendStatus(401);
 
   try {
-    const getRefreshToken = await refreshTokenModel.findOne({ refreshToken: req.body.token });
-    const refreshToken = getRefreshToken?.toJSON().refreshToken as string;
+    const getRefreshToken = await refreshTokenModel.findOne({ refresh_token: req.body.refresh_token });
+    const refresh_token = getRefreshToken?.toJSON().refresh_token as string;
 
-    if (refreshToken) {
-      jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string, (err, user) => {
+    if (refresh_token) {
+      jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET as string, (err, user) => {
         if (err) return res.sendStatus(403);
 
         if (typeof user === 'object' && 'name' in user) {
-          const accessToken = generateAccessToken({ user: user.name });
-          res.send({ accessToken: accessToken });
+          const access_token = generateAccessToken({ user: user.name });
+          res.send({ access_token: access_token });
         }
       });
     } else {

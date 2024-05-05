@@ -26,13 +26,13 @@ const loginUser = async (req: Request, res: Response) => {
     const username = login;
     const user = { name: username, role: findUser.role };
 
-    const accessToken = generateAccessToken(user);
-    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET as string);
+    const access_token = generateAccessToken(user);
+    const refresh_token = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET as string);
 
-    const newRefreshToken = new refreshTokenModel({ refreshToken: refreshToken });
+    const newRefreshToken = new refreshTokenModel({ refresh_token: refresh_token });
     await newRefreshToken.save();
 
-    res.status(200).send({ success: 'Login succesfull', accessToken: accessToken, refreshToken: refreshToken });
+    res.status(200).send({ success: 'Login succesfull', access_token: access_token, refresh_token: refresh_token });
   } catch (error) {
     console.error('Error in username/password check. ', error);
     res.status(500).send({ error: 'Internal server error' });
@@ -40,7 +40,7 @@ const loginUser = async (req: Request, res: Response) => {
 };
 
 const generateAccessToken = (user: object) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '15m' });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '20s' });
 };
 
 export default loginUser;

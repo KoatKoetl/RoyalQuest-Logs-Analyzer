@@ -4,14 +4,14 @@ import { refreshTokenModel } from '../../../models/Schemas.js';
 
 const userLogout = async (req: Request, res: Response) => {
   try {
-    const currentToken = req.body.token;
+    const current_token = req.body.token;
     const allTokens = await refreshTokenModel.find();
 
     for (const tokenDoc of allTokens) {
-      const token = tokenDoc.refreshToken;
+      const token = tokenDoc.refresh_token;
 
-      if (token === currentToken) {
-        await refreshTokenModel.deleteOne({ refreshToken: currentToken });
+      if (token === current_token) {
+        await refreshTokenModel.deleteOne({ refresh_token: current_token });
         return res.sendStatus(204);
       }
     }
