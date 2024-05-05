@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import { AlertStatus } from './alertStatus';
 import GameLOGO from './gameLogo';
 
@@ -55,6 +56,8 @@ const SendFilesPage = () => {
   const [isFileSent, setIsFileSent] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const cookies = new Cookies();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -76,12 +79,18 @@ const SendFilesPage = () => {
         method: 'POST',
         url: 'http://localhost:3000/api/storeCurrentLogs',
         data: formData,
+        headers: {
+          Authorization: 'Bearer ' + `${cookies.get('access_token')}`,
+        },
       });
 
       const DBRequest = await axios({
         method: 'POST',
         url: 'http://localhost:3000/api/storeToAllItems',
         data: formData,
+        headers: {
+          Authorization: 'Bearer ' + `${cookies.get('access_token')}`,
+        },
       });
 
       if (ServerRequest.status === 200 && DBRequest.status === 200) {
@@ -90,6 +99,17 @@ const SendFilesPage = () => {
         handleAlert(`Error sending file - ${ServerRequest.statusText}`, false);
       }
     } catch (error) {
+      // This code will get the new access token and store it in the cookies.
+      // Make the logic to not throw error but get the token before error sending
+      const requestNewAccessToken = await axios({
+        method: 'POST',
+        url: 'http://localhost:3000/api/auth/token',
+        data: {
+          token: cookies.get('refresh_token'),
+        },
+      });
+      cookies.set('access_token', requestNewAccessToken.data.accessToken);
+
       handleAlert(`Error sending file - ${error}`, false);
     } finally {
       setIsLoading(false);

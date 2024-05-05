@@ -1,9 +1,12 @@
 import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import GameLOGO from './gameLogo';
 
 const GetFilesPage = () => {
+  const cookies = new Cookies();
+
   const [fileName, setFileName] = useState<string>('');
 
   const handleSelectChange = (event: SelectChangeEvent<string>) => {
@@ -20,6 +23,9 @@ const GetFilesPage = () => {
     try {
       const response = await fetch('http://localhost:3000/api/databasecollections', {
         method: 'GET',
+        headers: {
+          Authorization: 'Bearer ' + `${cookies.get('access_token')}`,
+        },
       });
 
       if (response.ok) {
@@ -44,7 +50,6 @@ const GetFilesPage = () => {
         <GameLOGO></GameLOGO>
         <h2 className={`text-4xl font-bold text-center p-4 ${isFileDownloaded ? 'text-green-700' : 'text-red-700'}`}>
           <span>{alertMessage}</span> <br />
-          <span></span>
         </h2>
 
         {isFileDownloaded ? (

@@ -1,6 +1,7 @@
 import { Button, FormControl, FormHelperText, Input, InputLabel, Typography } from '@mui/material';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
+import Cookies from 'universal-cookie';
 
 const LogInPage = () => {
   const [login, setLogin] = useState('');
@@ -8,6 +9,8 @@ const LogInPage = () => {
   const [passwordError, setPasswordError] = useState('');
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
+
+  const cookies = new Cookies();
 
   const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
     const login = e.currentTarget.value;
@@ -36,6 +39,8 @@ const LogInPage = () => {
       if (loginUser.status === 200) {
         setMessage('Login successful');
         setSuccess(true);
+        cookies.set('access_token', loginUser.data.access_token);
+        cookies.set('refresh_token', loginUser.data.refresh_token);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
