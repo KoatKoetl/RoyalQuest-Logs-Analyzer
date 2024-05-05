@@ -9,7 +9,7 @@ interface alertStatus {
 
 const AlertStatus = ({ isFileSent, alertMessage, setScanIsClicked }: alertStatus) => {
   return (
-    <div className="flex flex-col justify-center items-center gap-6">
+    <div className="flex flex-col justify-center items-center gap-6 mt-16">
       <h2 className={`text-4xl font-bold text-center ${isFileSent ? 'text-green-700' : 'text-red-700'}`}>{alertMessage}</h2>
       {!isFileSent ? (
         <Button color="error" variant="contained" onClick={() => setScanIsClicked(false)}>
@@ -17,12 +17,12 @@ const AlertStatus = ({ isFileSent, alertMessage, setScanIsClicked }: alertStatus
         </Button>
       ) : (
         <div className="flex gap-6">
-          <Link to="/">
+          <Link to="/sendFiles">
             <Button color="primary" variant="contained" onClick={() => setScanIsClicked(false)}>
               ↽ Load more files
             </Button>
           </Link>
-          <Link to="getFilesPage">
+          <Link to="processData">
             <Button color="success" variant="contained" onClick={() => setScanIsClicked(false)}>
               Continue
             </Button>
